@@ -1,0 +1,155 @@
+.postcard-card {
+    background: rgba(0, 0, 0, 0.1);
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 1px 1.7px 4px #242424;
+    display: block;
+    float: left;
+    height: 226px;
+    margin: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 360px;
+}
+
+.postcard-card:hover .postcard-card__hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+@-webkit-keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.postcard-card__loader {
+    -webkit-animation: loader 1s linear infinite;
+    animation: loader 1s linear infinite;
+    background-image: url(https://static1.rocket-cdn.ru/assets/artbattle/ajax-loader-0a06824bc30e2dd026536c3ce47629c3.png);
+    height: 40px;
+    left: 50%;
+    margin: -20px 0 0 -20px;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+    width: 40px;
+}
+
+.postcard-card__back {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.postcard-card__back img {
+    display: block;
+    image-rendering: pixelated;
+    opacity: 1;
+}
+
+.postcard-card__hover {
+    -webkit-transition: opacity 0.15s ease;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    color: white;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transition: opacity 0.15s ease;
+    visibility: hidden;
+    width: 100%;
+    z-index: 3;
+}
+
+.postcard-card__author {
+    margin: 20px;
+    text-align: left;
+}
+
+.postcard-card__icon {
+    background-position: center center;
+    background-size: auto 20px;
+    border-radius: 50%;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.postcard-card__name {
+    color: white;
+    font: 13px/20px "Circe";
+}
+
+.postcard-card__likes {
+    float: left;
+    font: 18px/28px "Circe";
+    height: 80px;
+    margin: 90px 20px 10px;
+    text-align: left;
+    width: 180px;
+}
+
+.postcard-card__likes span {
+    display: block;
+}
+
+.postcard-card__likes span.gold {
+    color: #ffcc00;
+    font: 500 18px/28px "Circe";
+}
+
+.postcard-card__likes .flaticon-like80:before {
+    font-size: 45px;
+    position: relative;
+    top: 6px;
+}
+
+.postcard-card__likes .flaticon-like80 {
+    margin-right: 15px;
+}
+
+.postcard-card__show {
+    -webkit-transition: all 0.25s ease;
+    border: 2px solid #ffcc00;
+    border-radius: 20px;
+    color: #ffcc00;
+    display: inline-block;
+    font: 400 21px/20px "Circe";
+    margin-left: -30px;
+    margin-top: 97px;
+    padding: 8px 25px;
+    transition: all 0.25s ease;
+}
+
+.postcard-card__show:hover {
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
+.postcard-card__show:visited {
+    color: #ffcc00;
+}
