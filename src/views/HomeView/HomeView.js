@@ -1,39 +1,41 @@
-import React  from 'react';
+import _ from 'lodash';
+import React from 'react';
 import { connect } from 'react-redux';
+import postcardsActions from 'redux/modules/postcards/actions';
 import PostcardBox from 'components/PostcardBox/PostcardBox';
 
 const mapStateToProps = (state) => ({
-
+    postcards: state.postcards
 });
 
 export class HomeView extends React.Component {
+    constructor (props) {
+        super(props);
+    }
+
+    componentDidMount () {
+        const { dispatch } = this.props;
+        dispatch(postcardsActions.fetch());
+    }
+
     render () {
-        let postcards = [ // TODO: Fetch using REST API
-            {
-                id: 1,
-                frontTitle: 'Радищевский музей',
-                imageFrontUrl: 'https://ucarecdn.com/f41d1fcb-ca6b-45b5-8a91-3358b892cb92/-/resize/360x226/'
-            },
-            {
-                id: 2,
-                frontTitle: 'Публичная библиотека',
-                imageFrontUrl: 'https://ucarecdn.com/891d5d04-3f42-4426-8d3e-fbcdb6b616f3/-/resize/360x226/'
-            }
-        ];
+        let { postcards } = this.props;
 
         return (
             <div className='container text-center'>
-                <h1>Welcome to Postcards</h1>
                 <div className='row'>
                     <div className='col-xs-2 col-xs-offset-5'>
-                        {postcards.map(function (postcard) {
-                            return <PostcardBox postcard={postcard} />;
-                        })}
+                        { _.map(postcards.items, postcard => <PostcardBox key={postcard.id} postcard={postcard} />) }
                     </div>
                 </div>
             </div>
         );
     }
 }
+
+HomeView.propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    postcards: React.PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps)(HomeView);
