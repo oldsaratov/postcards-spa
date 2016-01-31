@@ -1,5 +1,4 @@
 import reduxCrud from 'redux-crud';
 
-let postcardsActionTypes = reduxCrud.actionTypesFor('postcards');
-
-export default postcardsActionTypes;
+export const postcardsActionTypes = reduxCrud.actionTypesFor('postcards');
+export const seriesActionTypes = reduxCrud.actionTypesFor('series');

@@ -1,19 +1,19 @@
-import { postcardsActionTypes } from 'redux/constants';
+import { seriesActionTypes } from 'redux/constants';
 
-let initialPostcardsState = {
+let initialSeriesState = {
     isFetching: false,
     didInvalidate: false,
     items: []
 };
 
-function postcards (state = initialPostcardsState, action) {
+function postcards (state = initialSeriesState, action) {
     switch (action.type) {
-    case postcardsActionTypes.fetchStart:
+    case seriesActionTypes.fetchStart:
         return Object.assign({}, state, {
             isFetching: true,
             didInvalidate: false
         });
-    case postcardsActionTypes.fetchSuccess:
+    case seriesActionTypes.fetchSuccess:
         return Object.assign({}, state, {
             isFetching: false,
             didInvalidate: false,
