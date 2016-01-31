@@ -2,17 +2,21 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import Select from 'react-select';
 import postcardsActions from 'redux/modules/postcards/actions';
 import seriesActions from 'redux/modules/series/actions';
+import { setSeriesFilter } from 'redux/modules/seriesFilter/actions';
 
 const mapStateToProps = (state) => ({
-    postcards: state.postcards,
+    filteredPostcards: filterPostcards(state.postcards, state.seriesFilter),
     series: state.series
 });
 
 export class PostcardsView extends React.Component {
     constructor (props) {
         super(props);
+        this.onSeriesFilterChanged = this.onSeriesFilterChanged.bind(this);
+        this.getSeriesTitle = this.getSeriesTitle.bind(this);
     }
 
     componentDidMount () {
@@ -23,9 +27,29 @@ export class PostcardsView extends React.Component {
 
     getSeriesTitle (seriesId) {
         const { series } = this.props;
-        let targetSeries = _.findWhere(series.items, { id: seriesId });
 
-        return targetSeries.title;
+        let targetSeries = _.findWhere(series.items, { id: seriesId });
+        let targetTitle = targetSeries ? targetSeries.title : '';
+
+        return targetTitle;
+    }
+
+    getSelectOptions () {
+        const { series } = this.props;
+        let selectOptions = [];
+
+        _.forEach(series.items, function (value) {
+            selectOptions.push({ value: value.id, label: value.title });
+        });
+
+        return selectOptions;
+    }
+
+    onSeriesFilterChanged (nextFilter) {
+        const { dispatch } = this.props;
+        let newSeries = nextFilter === '' ? 'ALL' : nextFilter;
+
+        dispatch(setSeriesFilter(newSeries));
     }
 
     renderTableRow (postcard) {
@@ -46,29 +70,50 @@ export class PostcardsView extends React.Component {
     }
 
     render () {
-        const { postcards } = this.props;
+        const { filteredPostcards } = this.props;
+        let divStyle = { width: 300 };
 
         return (
-            <table>
-                <thead>
+            <div>
+                <div style={divStyle}>
+                    <Select
+                        name='form-field-name'
+                        value=''
+                        options={this.getSelectOptions()}
+                        onChange={this.onSeriesFilterChanged}
+                    />
+                </div>
+
+                <table>
+                    <thead>
                     <tr>
                         <th>Надпись</th>
                         <th>Год</th>
                         <th>Серия</th>
                         <th> </th>
                     </tr>
-                </thead>
-                <tbody>
-                    { _.map(postcards.items, postcard => this.renderTableRow(postcard)) }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        { _.map(filteredPostcards, postcard => this.renderTableRow(postcard)) }
+                    </tbody>
+                </table>
+            </div>
         );
+    }
+}
+
+function filterPostcards (postcards, filter) {
+    switch (filter) {
+    case 'ALL':
+        return postcards.items;
+    default:
+        return postcards.items.filter(postcard => postcard.seriesId === filter);
     }
 }
 
 PostcardsView.propTypes = {
     dispatch: React.PropTypes.func.isRequired,
-    postcards: React.PropTypes.object.isRequired,
+    filteredPostcards: React.PropTypes.array.isRequired,
     series: React.PropTypes.object.isRequired
 };
 
