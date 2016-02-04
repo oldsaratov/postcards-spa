@@ -1,5 +1,8 @@
 import reduxCrud from 'redux-crud';
 
-let postcardsActionTypes = reduxCrud.actionTypesFor('postcards');
+// CRUD ACTIONS
+export const postcardsActionTypes = reduxCrud.actionTypesFor('postcards');
+export const seriesActionTypes = reduxCrud.actionTypesFor('series');
 
-export default postcardsActionTypes;
+// CUSTOM ACTIONS
+export const SET_SERIES_FILTER = 'SET_SERIES_FILTER';
