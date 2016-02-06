@@ -2,6 +2,7 @@ import reduxCrud from 'redux-crud';
 
 // CRUD ACTIONS
 export const postcardsActionTypes = reduxCrud.actionTypesFor('postcards');
+export const publishersActionTypes = reduxCrud.actionTypesFor('publishers');
 export const seriesActionTypes = reduxCrud.actionTypesFor('series');
 
 // CUSTOM ACTIONS
