@@ -9,7 +9,8 @@ import { setSeriesFilter } from 'redux/modules/seriesFilter/actions';
 
 const mapStateToProps = (state) => ({
     filteredPostcards: filterPostcards(state.postcards, state.seriesFilter),
-    series: state.series
+    series: state.series,
+    seriesFilter: state.seriesFilter
 });
 
 export class PostcardsView extends React.Component {
@@ -27,16 +28,17 @@ export class PostcardsView extends React.Component {
     getSeriesTitle (seriesId) {
         const { series } = this.props;
         let targetSeries = _.findWhere(series.items, { id: seriesId });
+        let targetTitle = targetSeries ? targetSeries.title : '';
 
-        return targetSeries.title;
+        return targetTitle;
     }
 
     getSelectOptions () {
         const { series } = this.props;
         let selectOptions = [];
 
-        _.forEach(series.items, function (value, key) {
-            selectOptions.push({ value: key, label: value.title });
+        _.forEach(series.items, function (value) {
+            selectOptions.push({ value: value.id, label: value.title });
         });
 
         return selectOptions;
@@ -67,7 +69,7 @@ export class PostcardsView extends React.Component {
     }
 
     render () {
-        const { filteredPostcards } = this.props;
+        const { filteredPostcards, seriesFilter } = this.props;
         let divStyle = { width: 300 };
 
         return (
@@ -75,6 +77,7 @@ export class PostcardsView extends React.Component {
                 <div style={divStyle}>
                     <Select
                         name='form-field-name'
+                        value={seriesFilter === 'ALL' ? '' : seriesFilter}
                         options={this.getSelectOptions()}
                         onChange={this.onSeriesFilterChanged}
                     />
@@ -110,7 +113,11 @@ function filterPostcards (postcards, filter) {
 PostcardsView.propTypes = {
     dispatch: React.PropTypes.func.isRequired,
     filteredPostcards: React.PropTypes.array.isRequired,
-    series: React.PropTypes.object.isRequired
+    series: React.PropTypes.object.isRequired,
+    seriesFilter: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+    ])
 };
 
 export default connect(mapStateToProps)(PostcardsView);
