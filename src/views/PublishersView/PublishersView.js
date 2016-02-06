@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Select from 'react-select';
 import publishersActions from 'redux/modules/publishers/actions';
 
 const mapStateToProps = (state) => ({
@@ -36,7 +35,6 @@ export class PublishersView extends React.Component {
 
     render () {
         const { publishers } = this.props;
-        let divStyle = { width: 300 };
 
         return (
             <div>
