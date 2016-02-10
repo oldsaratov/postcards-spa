@@ -9,7 +9,7 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 import CoreLayout from 'layouts/CoreLayout/CoreLayout';
 import HomeView from 'views/HomeView/HomeView';
 import PostcardsView from 'views/PostcardsView/PostcardsView';
-import PostcardDetailsView from 'views/PostcardDetailsView/PostcardDetailsView';
+import PostcardDetailsView from 'views/PostcardsView/PostcardDetailsView';
 import PublishersView from 'views/PublishersView/PublishersView';
 import SeriesView from 'views/SeriesView/SeriesView';
 import NotFoundView from 'views/NotFoundView/NotFoundView';

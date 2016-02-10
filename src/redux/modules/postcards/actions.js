@@ -14,7 +14,7 @@ let postcardsActions = {
 
             dispatch(baseActions.fetchStart());
 
-            return fetch('http://postcards.oldsaratov.ru/api/postcards/getAll')
+            return fetch('http://postcards.oldsaratov.ru/api/postcards/GetAllForMainPage')
                 .then(checkStatus)
                 .then(parseJSON)
                 .then(data => dispatch(baseActions.fetchSuccess(data)))
